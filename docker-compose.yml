@@ -1,0 +1,26 @@
+# MariaDB & Adminer
+version: "3.1"
+
+services:
+  db:
+    image: mariadb
+    container_name: con-mariadb
+    volumes:
+      - db_data:/var/local/mysqldata
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: example
+      MARIADB_USER: tbrause
+      MARIADB_PASSWORD: secret
+      MARIADB_MYSQL_LOCALHOST_USER: tbrause
+
+  adminer:
+    image: adminer
+    container_name: con-adminer
+    environment:
+      ADMINER_DEFAULT_SERVER: con-mariadb
+    restart: always
+    ports:
+      - "8080:8080"
+volumes:
+  db_data:
